@@ -3,15 +3,16 @@ Input Files and Trajectories for the 2019 PLoS Computational Biology Manuscript 
 
 For more information, please contact the corresponding authors: Yuhua Song (yhsong@uab.edu) or Erik Roberson (eroberson@uabmc.edu)
 
-Directories contained within are named according to the variant name within the manuscript.
-Each directory contains the necessary input files used for the simultaion as well as the trajectories in binary .binpos format.
+Each subdirectory contains the necessary input files used for the simultaion as well as the trajectories in binary .binpos format.
+Subdirectories are named according to the variant name within the manuscript.
+
 Types of input files:
   .rst -> "restart" coordinate files for the starting frame of each segment of the trajectory 
            The Cheaha supercomputer only allows individual runs up to 150 hours, so trajectories are split into multiple segments.    
            The order of these segments for each variant is as follows: 
            eq-300K.rst(end of the heating protocol) --md.in--> md.rst --ext.in--> ext.rst --ext.in--> ext1.rst --ext.in--> ext2...
            
-  .prmtop -> parameter/topology files describing the atoms ((protein, solvent, ions) associated with the simulations. 
+  .prmtop -> parameter/topology files describing the atoms (protein, solvent, ions) associated with the simulations. 
            Each variant was run with a single .prmtop file throughout
            
   .in -> input parameters to begin a run from a set of coordinates and a parameter/topology using Amber14 
@@ -19,3 +20,7 @@ Types of input files:
            
   .binpos -> The full trajectory for each simulation in AMBER binary coordinate format. 
            Other formats (including human readable or containing unit cell information) are available upon request.
+
+All simulations were carried out using the AMBER14 suite and AMBER ff14sb force fields. 
+Additional information, including hardware specifications, is contained within the manuscript text. 
+DOI: Pending
