@@ -7,8 +7,9 @@ Each subdirectory contains the necessary input files used for the simultaion as 
 Subdirectories are named according to the variant name within the manuscript.
 
 The Cheaha supercomputer only allows individual runs up to 150 hours, so trajectories are split into multiple segments.    
-The order of these segments for each variant is as follows: 
-eq-300K.rst(end of the heating protocol) --md.in--> md.rst --ext.in--> ext.rst --ext.in--> ext1.rst --ext.in--> ext2...
+The order of these segments from the end of the heating protocol (at 300K) for each variant is as follows: 
+
+  eq-300K.rst  --md.in-->  md.rst  --ext.in-->  ext.rst  --ext.in-->  ext2.rst  --ext.in-->  ext3...
 
 Types of input files:
 
