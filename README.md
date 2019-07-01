@@ -1,25 +1,25 @@
 # FTDPaper2019
-Input Files and Trajectories for the 2019 PLoS Computational Biology Manuscript Entitled "Frontotemporal dementia–associated variants in TREM2 destabilize the apical ligand-binding region of the immunoglobulin domain"
+Input Files and Trajectories for the 2019 PLoS Computational Biology Manuscript Entitled "Frontotemporal dementia–associated variants in TREM2 destabilize the apical ligand-binding region of the immunoglobulin domain."
 
 For more information, please contact the corresponding authors: Yuhua Song (yhsong@uab.edu) or Erik Roberson (eroberson@uabmc.edu)
 
 Each subdirectory contains the necessary input files used for the simulation as well as the trajectories in binary .binpos format.
 Subdirectories are named according to the variant name within the manuscript.
 
-The Cheaha supercomputer only allows individual runs up to 150 hours, so trajectories are split into multiple segments.    
+UAB High Performance Computing's Cheaha supercluster only allows individual runs up to 150 hours, so trajectories are split into multiple segments.    
 The order of these segments from the end of the heating protocol (at 300K) for each variant is as follows: 
 
   eq-300K.rst  --md.in-->  md.rst  --ext.in-->  ext.rst  --ext.in-->  ext2.rst  --ext.in-->  ext3...
 
 Types of input files:
 
-  .rst -> "restart" coordinate files for the starting frame of each segment of the trajectory
+  .rst -> "restart" coordinate files for the starting frame of each segment of the trajectory.
            
   .prmtop -> parameter/topology files describing the atoms (protein, solvent, ions) associated with the simulations. 
-           Each variant was run with a single .prmtop file throughout
+           Each variant was run with a single .prmtop file throughout.
            
-  .in -> input parameters to begin a run from a set of coordinates and a parameter/topology using Amber14 
-           As stated above, md.in was used for the initial step of the simultaion and ext.in was use for all following steps
+  .in -> input parameters to begin a run from a set of coordinates and a parameter/topology using Amber14. 
+           As stated above, md.in was used for the initial step of the simultaion and ext.in was used to extend the MD simulations for all following steps.
            
   .binpos -> The full trajectory for each simulation in AMBER binary coordinate format. 
            Other formats (including human readable or containing unit cell information) are available upon request.
