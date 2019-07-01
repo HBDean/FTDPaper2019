@@ -3,7 +3,7 @@ Input Files and Trajectories for the 2019 PLoS Computational Biology Manuscript 
 
 For more information, please contact the corresponding authors: Yuhua Song (yhsong@uab.edu) or Erik Roberson (eroberson@uabmc.edu)
 
-Each subdirectory contains the necessary input files used for the simultaion as well as the trajectories in binary .binpos format.
+Each subdirectory contains the necessary input files used for the simulation as well as the trajectories in binary .binpos format.
 Subdirectories are named according to the variant name within the manuscript.
 
 The Cheaha supercomputer only allows individual runs up to 150 hours, so trajectories are split into multiple segments.    
