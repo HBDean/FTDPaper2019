@@ -7,6 +7,7 @@ Each subdirectory contains the necessary input files used for the simultaion as 
 Subdirectories are named according to the variant name within the manuscript.
 
 Types of input files:
+
   .rst -> "restart" coordinate files for the starting frame of each segment of the trajectory 
            The Cheaha supercomputer only allows individual runs up to 150 hours, so trajectories are split into multiple segments.    
            The order of these segments for each variant is as follows: 
