@@ -24,6 +24,6 @@ Types of input files:
   .binpos -> The full trajectory for each simulation in AMBER binary coordinate format. 
            Other formats (including human readable or containing unit cell information) are available upon request.
 
-All simulations were carried out using the AMBER14 suite and AMBER ff14sb force fields. 
+All simulations were carried out using the AMBER14 suite (ambermd.org) and AMBER ff14sb force fields. 
 Additional information, including hardware specifications, is contained within the manuscript text. 
 DOI: Pending
