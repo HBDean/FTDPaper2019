@@ -8,7 +8,7 @@ Subdirectories are named according to the variant name within the manuscript.
 
 Types of input files:
 
-  .rst -> "restart" coordinate files for the starting frame of each segment of the trajectory 
+  .rst -> "restart" coordinate files for the starting frame of each segment of the trajectory
            The Cheaha supercomputer only allows individual runs up to 150 hours, so trajectories are split into multiple segments.    
            The order of these segments for each variant is as follows: 
            eq-300K.rst(end of the heating protocol) --md.in--> md.rst --ext.in--> ext.rst --ext.in--> ext1.rst --ext.in--> ext2...
