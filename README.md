@@ -25,4 +25,4 @@ Final trajectories in binary .binpos format are available from the Open Science 
 
 All simulations were carried out using the AMBER14 suite (ambermd.org) and AMBER ff14sb force fields. 
 Additional information, including hardware specifications, is contained within the manuscript text. 
-DOI: Pending
+DOI: 10.3389/fneur.2019.01252
