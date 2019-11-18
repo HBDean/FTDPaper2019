@@ -1,4 +1,4 @@
-# FTDPaper2019
+# FrontiersPaper2019
 Input files for the 2019 Frontiers Neurology manuscript entitled "Neurodegenerative disease–associated variants in TREM2 destabilize the apical ligand-binding region of the immunoglobulin domain."
 
 For more information, please contact the corresponding authors: Yuhua Song (yhsong@uab.edu) or Erik Roberson (eroberson@uabmc.edu)
