@@ -1,0 +1,104 @@
+##### Trajectory Building #####
+# Input files for analysis
+parm 2AWT.prmtop
+trajin 2AWT-md-fixed.binpos
+
+# RMSD comparison to backbone in the first frame to fix translation & rotation
+rms first :1-109@CA out Output/TREM2-TREM2-Ig_1st.rmsd :1-109@CA
+
+# Averages all coordinates to create a consensus orientation for comparison 
+average Output/TREM2-TREM2-Ig_Avg.mol2 mol2 start 1001 stop 5000
+average crdset TREM2_Avg start 1001 stop 5000
+
+# Generate coordinate "data set" of input frames (speeds things up a bit)
+createcrd TREM2_Traj
+run
+
+
+##### Basic Analyses #####
+# RMSD comparison to the average from above to show gross deviations
+crdaction TREM2_Traj rms @CA \
+  ref TREM2_Avg out Output/TREM2-TREM2-Ig_Avg.rmsd \
+  crdframes 1001,5000
+
+# Summed fluctuation of each residue
+crdaction TREM2_Traj atomicfluct @CA \
+  out Output/TREM2-TREM2-Ig.rmsf byres \
+  crdframes 1001,5000
+run
+
+# Shows dynamic correlation of each atom (or residue if "byres" is specified)
+crdaction TREM2_Traj matrix correl @CA \
+  out Output/TREM2-TREM2-Ig.DynCor byres \
+  crdframes 1001,5000
+run
+
+# Shows avg distance between any two residues
+crdaction TREM2_Traj matrix @CA \
+  out Output/TREM2-TREM2-Ig.Dist byres \
+  crdframes 1001,5000
+run
+
+# Outputs all hydrogen bonds that appear averaged by atom over time
+hbond HB @N,C,O,H avgout Output/TREM2-TREM2-Ig_Avg.hbond series printatomnum
+run
+
+# Build K-dist plot to help select epsilon and minpoint values for dbscan clustering
+cluster C0 dbscan kdist 5 rms sieve 10 kfile Cluster
+
+# Creates a summary of fraction of time spent in each structure & a matrix of structure over time for each residue 
+secstruct out Output/TREM2-TREM2-Ig.StrMat sumout Output/TREM2-TREM2-Ig.SecStr
+run
+
+# Generate RMSD between every 2-frame comparison in the trajectory
+# rms2d out Output/TREM2-TREM2-Ig.RMSMat
+
+##### Principal Component (PC) Analysis #####
+# Generate covariance matrix
+crdaction TREM2_Traj matrix covar @N,CA,C,O \
+  name TREM2_Covar \
+  crdframes 1001,5000
+
+# Diagonalize to generate first 10 PCs
+runanalysis diagmatrix TREM2_Covar out PCA/TREM2-Ig_EigVecs.dat \
+  vecs 50 name TREM2_EigVecs \
+  nmwiz nmwizvecs 50 nmwizfile PCA/TREM2-Ig.nmd nmwizmask @N,CA,C,O
+ 
+# Project the PCs onto our trajectory & generate histograms of the first three PCs
+crdaction TREM2_Traj projection TREM2-Ig modes TREM2_EigVecs \
+  beg 1 end 50 crdframes 1001,5000 @N,CA,C,O
+  
+hist TREM2-Ig:1 bins 100 out PCA/TREM2-TREM2-Ig-Hist.agr norm name TREM2-Ig-1
+hist TREM2-Ig:2 bins 100 out PCA/TREM2-TREM2-Ig-Hist.agr norm name TREM2-Ig-2
+hist TREM2-Ig:3 bins 100 out PCA/TREM2-TREM2-Ig-Hist.agr norm name TREM2-Ig-3
+hist TREM2-Ig:4 bins 100 out PCA/TREM2-TREM2-Ig-Hist.agr norm name TREM2-Ig-4
+hist TREM2-Ig:5 bins 100 out PCA/TREM2-TREM2-Ig-Hist.agr norm name TREM2-Ig-5
+hist TREM2-Ig:6 bins 100 out PCA/TREM2-TREM2-Ig-Hist.agr norm name TREM2-Ig-6
+hist TREM2-Ig:7 bins 100 out PCA/TREM2-TREM2-Ig-Hist.agr norm name TREM2-Ig-7
+hist TREM2-Ig:8 bins 100 out PCA/TREM2-TREM2-Ig-Hist.agr norm name TREM2-Ig-8
+hist TREM2-Ig:9 bins 100 out PCA/TREM2-TREM2-Ig-Hist.agr norm name TREM2-Ig-9
+hist TREM2-Ig:10 bins 100 out PCA/TREM2-TREM2-Ig-Hist.agr norm name TREM2-Ig-10
+run
+
+# Clean up, so we can start over with just the PCs as our new "trajectories"
+clear all
+
+
+##### PC Visualization #####
+# New input files 
+readdata PCA/TREM2-Ig_EigVecs.dat name EigVecs
+parm 2AWT.prmtop
+parmstrip !(@N,CA,C,O)
+parmwrite out PCA/TREM2-bkbone.prmtop 
+
+# Build new PC "trajectories" for each. These can be viewed as NetCDF files in VMD
+runanalysis modes name EigVecs trajout PCA/TREM2-Ig-mode1.nc \
+  pcmin -20 pcmax 20 tmode 1 trajoutfmt netcdf
+runanalysis modes name EigVecs trajout PCA/TREM2-Ig-mode2.nc \
+  pcmin -20 pcmax 20 tmode 2 trajoutfmt netcdf
+runanalysis modes name EigVecs trajout PCA/TREM2-Ig-mode3.nc \
+  pcmin -20 pcmax 20 tmode 3 trajoutfmt netcdf
+runanalysis modes name EigVecs trajout PCA/TREM2-Ig-mode4.nc \
+  pcmin -20 pcmax 20 tmode 4 trajoutfmt netcdf
+runanalysis modes name EigVecs trajout PCA/TREM2-Ig-mode5.nc \
+  pcmin -20 pcmax 20 tmode 5 trajoutfmt netcdf
